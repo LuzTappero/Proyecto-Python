@@ -3,6 +3,7 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, UserModel
 from django import forms
 from .models import Avatar
+from Blog.models import Perfil
 
 
 class UserCreationFormulario(UserCreationForm):
@@ -17,19 +18,25 @@ class UserCreationFormulario(UserCreationForm):
 
 class UserEditionFormulario(UserChangeForm):
     email = forms.EmailField()
-    first_name = forms.CharField(label="Nombre")
-    last_name = forms.CharField(label="Apellido")
     password1 = forms.CharField(label= "Contraseña", widget=forms.PasswordInput)
     password2 = forms.CharField(label= "Repetir Contraseña", widget=forms.PasswordInput)
 
-
     class Meta:
         model = UserModel
-        fields = ["email", "first_name", "last_name"]
+        fields = ["email"]
         help_texts = {k: "" for k in fields}
+
+    about_me= forms.CharField()
+
 
 class UserAvatarFormulario(forms.ModelForm):
 
     class Meta:
         model= Avatar
         fields= ["imagen"]
+        
+class PerfilFormulario(forms.ModelForm):
+
+    class Meta:
+        model= Perfil
+        fields= ["usuario", "about_me"]

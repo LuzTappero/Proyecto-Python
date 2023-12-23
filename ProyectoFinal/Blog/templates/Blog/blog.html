@@ -41,7 +41,13 @@
 <body>
 
     {% include 'Home/navbar.html' %}
-    {% include 'Home/pageheader.html' %}
+    <!--header-->
+    <header class="py-3 bg-light border-bottom mb-2" style="background-image: url(ProyectoFinal/Home/static/assets/fondouno.jpg)">
+        <div class="container text-center my-3">
+            <h1 class="fw-bolder">Welcome</h1>
+            <p class="lead mb-0">Created by LUZ TAPPERO</p>
+        </div>
+    </header>
 
     <div class="container">
         {% block contenidoQueCambia %}

@@ -1,9 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
+from Home.models import Avatar
 
 class Perfil (models.Model):
     usuario= models.ForeignKey(User, on_delete= models.CASCADE)
     about_me= models.CharField(max_length=2200)
+
 
     def __str__(self):
         return f"{self.usuario}"

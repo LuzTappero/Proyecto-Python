@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from .forms import UserCreationFormulario, UserEditionFormulario, UserAvatarFormulario
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate
@@ -9,8 +10,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import PasswordChangeView
 from datetime import datetime
 from django.urls import reverse_lazy
+from Blog.models import Perfil
+from django.views.generic.detail import DetailView
 
-from django.contrib.auth.decorators import login_required
 
 
 def Home(request):
@@ -21,6 +23,9 @@ def Home(request):
     else:
         avatar_url=""
     return render (request, 'Home/index.html', context= {'avatar_url':avatar_url})
+
+def About(request):
+    return render (request, 'Home/aboutme.html')
 
 def registro_view(request):
 
@@ -78,10 +83,23 @@ def login_view(request):
 def logout_view(request):
     pass
 
+def profile_view(request, id=None):
+    if id:
+        user= User.objects.get(id=id)
+        profile= Perfil.objects.filter(usuario=user).first()
+        avatar= Avatar.objects.filter(user=user).first()
+        avatar_url= avatar.imagen.url if avatar is not None else ""
+        context= {'profile': profile, 'avatar_url': avatar_url}
+
+        return render (request, 'Home/profile.html', context)
+    else:
+        return HttpResponse("Id no proporcionado en la URL.")
+
 @login_required
-def editar_perfil(request):
+def profile_update(request):
 
     usuario= request.user
+    perfil= Perfil.objects.filter(usuario=usuario).first()
     avatar = Avatar.objects.filter(user=usuario).last()
     avatar_url= avatar.imagen.url if avatar is not None else ""
 
@@ -89,34 +107,32 @@ def editar_perfil(request):
 
         valores_iniciales = {
             "email": usuario.email,
-            "first_name": usuario.first_name,
-            "last_name": usuario.last_name
+            "Descripción": perfil.about_me
         }
 
         formulario = UserEditionFormulario(initial=valores_iniciales)
         return render(
             request,
-            'Home/editar_perfil.html',
+            'Home/profile_update.html',
             context={"form": formulario, "usuario": usuario, "avatar_url": avatar_url}
             )
-    else:
-        formulario = UserEditionFormulario(request.POST)
-        if formulario.is_valid():
-            informacion = formulario.cleaned_data
+#     else:
+#         formulario = UserEditionFormulario(request.POST)
+#         if formulario.is_valid():
+#             informacion = formulario.cleaned_data
 
-            usuario.email = informacion["email"]
+#             usuario.email = informacion["email"]
 
-            usuario.set_password(informacion["password1"])
+#             usuario.set_password(informacion["password1"])
 
-            usuario.first_name = informacion["first_name"]
-            usuario.last_name = informacion["last_name"]
-            usuario.save()
+#             usuario.first_name = informacion["first_name"]
+#             usuario.last_name = informacion["last_name"]
+#             usuario.save()
 
-        return redirect ('Home:index')
+#         return redirect ('Home:index')
     
 @login_required # type: ignore
 def crear_avatar(request):
-
     usuario = request.user
 
     if request.method == "GET":
