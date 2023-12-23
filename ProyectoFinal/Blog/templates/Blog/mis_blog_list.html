@@ -12,6 +12,19 @@
                             <p>{{ blog.descripcion }}</p>
                             <p>Autor: {{ blog.autor }}</p>
                             <p>Categoría: {{ blog.categoria }}</p>
+                            <div class="buttons-container">
+                                <form action="{% url 'blog_update' blog.pk %}" method="POST">
+                                    {% csrf_token %}
+                                    <button type="submit" class="edit-button">Editar</button>
+                                </form>
+                                <button class="delete-button">
+                                    <a href="{% url 'blog_delete' blog.pk%}">Eliminar</a>
+                                </button>
+                                <!-- <button class="Agregar Comentario a este Blog-button">
+                                    <a href="">Agregar Comentario</a>
+                                </button> -->
+                            </div>
+                            
                         </div>
                     </li>
                 {% endfor %}

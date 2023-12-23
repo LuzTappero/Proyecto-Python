@@ -14,6 +14,7 @@ urlpatterns = [
     path ('blog_list/', views.BlogList.as_view(), name='blog_list'),
     path ('blog_update/<pk>', views.BlogUpdate.as_view(), name='blog_update'),
     path ('blog_delete/<pk>', views.BlogDelete.as_view(), name='blog_delete'),
+    path('mis_blog_list/<id>/', views.MisBlogList, name= 'mis_blog_list')
     
     
     #URLs para interacción con base de datos

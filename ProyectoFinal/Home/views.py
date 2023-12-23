@@ -133,3 +133,4 @@ def crear_avatar(request):
             modelo = Avatar(user=usuario, imagen=informacion["imagen"])
             modelo.save()
             return redirect('Home: index')
+        
