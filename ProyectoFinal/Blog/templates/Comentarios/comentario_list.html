@@ -1,0 +1,79 @@
+{% extends 'Blog/blog.html' %}
+
+{% block contenidoQueCambia %}
+    <div style="background-color: rgba(216, 203, 186, 0.774);">
+        {% if comentarios %}
+            <ul>
+                {% for comentario in comentarios %}
+                    <li>
+                        <div class="blog-item">
+                            <h3>Titulo del Blog: {{ comentario.blog }}</h3>
+                            <h3>Usuario: {{ comentario.usuario }}</h3>
+                            <p>Comentario: {{ comentario.texto }}</p>
+                            <div class="buttons-container">
+                                <form action="{% url 'comentario_update' comentario.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <button type="submit" class="edit-button">Editar</button>
+                                </form>
+                                <button class="delete-button">
+                                    <a href="{% url 'comentario_delete' comentario.id %}">Eliminar</a>
+                                </button>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+        <h1>No existen comentarios en la BBDD</h1>
+        {% endif %}
+    </div>
+
+    <style>
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .blog-item {
+            text-align: left;
+        }
+
+        .edit-button,
+        .delete-button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .edit-button {
+            background-color: #757a7e;
+            color: white;
+        }
+
+        .edit-button:hover {
+            background-color: #757a7e;
+        }
+
+        .delete-button {
+            background-color: #a498a7;
+            color: white;
+        }
+
+        .delete-button:hover {
+            background-color: #a498a7;
+        }
+
+        .buttons-container {
+            margin-top: 10px;
+        }
+    </style>
+{% endblock %}

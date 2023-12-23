@@ -1,0 +1,66 @@
+{% extends 'Blog/blog.html' %}
+
+{% block contenidoQueCambia %}
+    <body>
+        <div class="container">
+            <h3>Agregar Blog</h3>
+            <form action="/blog_create/" method="POST">
+                {% csrf_token %}
+                <div class="form-fields">
+                    {{ form.as_p }}
+                </div>
+                <button type="submit" class="save-button">Guardar</button>
+            </form>
+        </div>
+    </body>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            background-color: #d8cbbf;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 50px auto;
+            padding: 20px;
+            width: 80%;
+        }
+
+        h3 {
+            color: #333;
+            text-align: center;
+        }
+
+        form {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .form-fields {
+            margin-bottom: 15px;
+        }
+
+        input[type="text"],
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .save-button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+
+        .save-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'Blog/blog.html' %}
+
+{% block contenidoQueCambia %}
+
+<h2>Login</h2>
+<body style="background-color: rgba(216, 203, 186, 0.774);">
+    <form action="/login/" method="POST">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <input type="submit" value="Iniciar sesión">
+    </form>
+</body>
+
+{% endblock %}

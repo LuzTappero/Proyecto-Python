@@ -1,0 +1,43 @@
+{% extends 'Blog/blog.html' %}
+
+{% block contenidoQueCambia %}
+    <div class="centered-container">
+        {{ titulo }}
+        <div class="confirmation-message">
+            <h1>Borrar Comentario: {{ comentario.nombre }}</h1>
+            <p>¿Estás seguro de que deseas borrar el comentario <strong>{{ comentario.usuario }}</strong> - texto: <strong>{{ comentario.texto }} - blog {{ comentario.blog }} </strong>?</p>
+        </div>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="delete-button">Eliminar</button>
+        </form>
+    </div>
+
+    <style>
+        .centered-container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .confirmation-message {
+            background-color: #be7b73;
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .delete-button {
+            padding: 10px 20px;
+            background-color: #be7b73;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .delete-button:hover {
+            background-color: rgb(211, 136, 128);
+        }
+    </style>
+{% endblock %}

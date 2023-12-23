@@ -1,0 +1,86 @@
+{% extends 'Blog/blog.html' %}
+
+{% block contenidoQueCambia %}
+
+    <div class="blog-container">
+        {% if blogs %}
+            <ul class="blog-list">
+                {% for blog in blogs %}
+                    <li class="blog-item">
+                        <div>
+                            <h3>{{ blog.titulo }}</h3>
+                            <p>{{ blog.descripcion }}</p>
+                            <p>Autor: {{ blog.autor }}</p>
+                            <p>Categoría: {{ blog.categoria }}</p>
+                            <div class="buttons-container">
+                                <form action="{% url 'blog_update' blog.pk %}" method="POST">
+                                    {% csrf_token %}
+                                    <button type="submit" class="edit-button">Editar</button>
+                                </form>
+                                <button class="delete-button">
+                                    <a href="{% url 'blog_delete' blog.pk%}">Eliminar</a>
+                                </button>
+                                <!-- <button class="Agregar Comentario a este Blog-button">
+                                    <a href="">Agregar Comentario</a>
+                                </button> -->
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+        <h1>No existen blogs en la BBDD</h1>
+        {% endif %}
+    </div>
+
+    <style>
+        .blog-container {
+            background-color: rgba(216, 203, 186, 0.774);
+            padding: 20px;
+        }
+
+        .blog-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .blog-item {
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: left;
+        }
+
+        .edit-button,
+        .delete-button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .edit-button {
+            background-color: #757a7e;
+            color: white;
+        }
+
+        .edit-button:hover {
+            background-color: #757a7e;
+        }
+
+        .delete-button {
+            background-color: #a498a7;
+            color: white;
+        }
+
+        .delete-button:hover {
+            background-color: #a498a7;
+        }
+
+        .buttons-container {
+            margin-top: 10px;
+        }
+    </style>
+{% endblock %}

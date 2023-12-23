@@ -1,0 +1,22 @@
+{% extends 'Blog/blog.html' %}
+
+{% block contenidoQueCambia%}
+<!DOCTYPE html>
+ <html lang="en">
+
+ <div style="font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f4; max-width: 600px; margin: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+
+    <h6 style="color: #4a90e2; border-bottom: 2px solid #4a90e2; padding-bottom: 10px;">
+        Editar usuario: {{ usuario }}
+    </h6>
+
+    <div style="margin-top: 20px; background-color: white; padding: 20px; border-radius: 5px;">
+        <form action='editar_perfil' method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Guardar" style="background-color: #4a90e2; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+        </form>
+    </div>
+
+</div>
+{%endblock%}
