@@ -4,7 +4,7 @@
     <body>
         <div class="container">
             <h3>Agregar Comentario</h3>
-            <form action="{% url 'comentario_create' blog.pk %}"  method="POST">
+            <form action="{% url 'comentario_create' blog_pk=blog.pk %}"  method="POST">
                 {% csrf_token %}
                 <div class="form-fields">
                     {{ form.as_p }}

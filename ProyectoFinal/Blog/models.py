@@ -18,13 +18,13 @@ class Blog(models.Model):
     def __str__(self):
         return self.titulo
     
-# class Comentario(models.Model):
-#     usuario= models.ForeignKey(User, on_delete=models.CASCADE)
-#     texto= models.CharField(max_length=2200) 
-#     blog= models.ForeignKey(Blog, on_delete=models.CASCADE)
+class Comentario(models.Model):
+    usuario= models.ForeignKey(User, on_delete=models.CASCADE)
+    texto= models.CharField(max_length=2500) 
+    blog= models.ForeignKey(Blog, on_delete=models.CASCADE)
 
-#     def __str__(self):
-#         return f"@{self.usuario}: '{self.blog}'"
+    def __str__(self):
+        return f"@{self.usuario}: '{self.blog}'"
     
 
 
