@@ -1,5 +1,6 @@
+from pyexpat.errors import messages
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseBadRequest
 from .forms import UserCreationFormulario, UserEditionFormulario, UserAvatarFormulario
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate
@@ -99,37 +100,38 @@ def profile_view(request, id=None):
 def profile_update(request):
 
     usuario= request.user
-    perfil= Perfil.objects.filter(usuario=usuario).first()
-    avatar = Avatar.objects.filter(user=usuario).last()
-    avatar_url= avatar.imagen.url if avatar is not None else ""
+    perfil= Perfil.objects.filter(usuario=usuario).last()
+    # avatar = Avatar.objects.filter(user=usuario).last()
+    # avatar_url= avatar.imagen.url if avatar is not None else ""
 
     if request.method == "GET":
 
         valores_iniciales = {
             "email": usuario.email,
-            "Descripción": perfil.about_me
+            "about_me": perfil.about_me if perfil else ""
         }
 
         formulario = UserEditionFormulario(initial=valores_iniciales)
         return render(
             request,
             'Home/profile_update.html',
-            context={"form": formulario, "usuario": usuario, "avatar_url": avatar_url}
+            context={"form": formulario, "usuario": usuario, "profile":perfil}
             )
-#     else:
-#         formulario = UserEditionFormulario(request.POST)
-#         if formulario.is_valid():
-#             informacion = formulario.cleaned_data
+    elif request.method == "POST":
+        formulario = UserEditionFormulario(request.POST)
+        if formulario.is_valid():
+            informacion = formulario.cleaned_data
 
-#             usuario.email = informacion["email"]
+            usuario.email = informacion["email"]
+            usuario.set_password(informacion["password1"])
+            if perfil:
+                perfil.about_me = informacion["about_me"]
+                perfil.save()
 
-#             usuario.set_password(informacion["password1"])
-
-#             usuario.first_name = informacion["first_name"]
-#             usuario.last_name = informacion["last_name"]
-#             usuario.save()
-
-#         return redirect ('Home:index')
+            usuario.save()
+            return redirect('profile', id=usuario.id)
+    else:
+        return HttpResponseBadRequest('Bad Request')
     
 @login_required # type: ignore
 def crear_avatar(request):

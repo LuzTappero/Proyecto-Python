@@ -99,13 +99,7 @@ class ComentarioCreate(LoginRequiredMixin, CreateView):
 # class ComentarioList(ListView):
     
 #     model= Comentario
-#     template_name= 'Comentarios/comentario_list.html'
-#     context_object_name='comentarios'
-
-# class ComentarioUpdate(UpdateView):
-    
-#     model= Comentario
-#     template_name = 'Comentarios/comentario_update.html'
+#     te  template_name = 'Comentarios/comentario_update.html'
 #     fields=["nombre", "edad", "comentario"]
 #     success_url= '/comentario_list/'
 
@@ -113,6 +107,11 @@ class ComentarioCreate(LoginRequiredMixin, CreateView):
     
 #     model= Comentario
 #     template_name = 'Comentarios/comentario_delete.html'
-#     success_url= '/comentario_list/'
+#     success_url= '/comentario_list/'mplate_name= 'Comentarios/comentario_list.html'
+#     context_object_name='comentarios'
+
+# class ComentarioUpdate(UpdateView):
+#     model= Comentario
+#   
 
 
