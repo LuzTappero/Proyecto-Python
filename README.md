@@ -1,4 +1,5 @@
-# Proyecto_final- TAPPERO MARIA LUZ
+
+###Proyecto_final- TAPPERO MARIA LUZ
 Este proyecto realizado en python-django; tiene como funciones acceder a una pagina web, ver blogs subidos por distintos usuarios; registrarse, loguearse, subir blogs, crear comentarios sobre blogs de otros usuarios, crear un perfil con información sobre el usuario, subir un avatar y poder editarlos.
 
 0- Installar Django con el comando pip install django
@@ -93,3 +94,4 @@ if settings.DEBUG: urlpatterns += static(settings.MEDIA_URL, document_root=setti
 Por otra parte, se puede realizar un registro y login de usuarios; para poder tener acceso a Crear Blogs, interaccionar con otros blogs creando comentarios, general un perfil donde se pueda poner información sobre el mismo, avatares y link que lleven a una red social.
 
 ----------------------------------------------------------------------------------------------------------
+=======
