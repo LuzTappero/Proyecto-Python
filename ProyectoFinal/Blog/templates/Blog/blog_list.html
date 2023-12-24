@@ -8,10 +8,12 @@
                 {% for blog in blogs %}
                     <li class="blog-item">
                         <div>
+                            
                             <h3>{{ blog.titulo }}</h3>
                             <p>{{ blog.descripcion }}</p>
                             <p>Autor: {{ blog.autor }}</p>
                             <p>Categoría: {{ blog.categoria }}</p>
+                            <p>Fecha {{ blog.Fecha }}</p>
                             <div class="buttons-container">
                                 <button class="Agregar Comentario a este Blog-button">
                                     <a href="{% url 'comentario_create' blog.pk %}">Agregar Comentario</a>

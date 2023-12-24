@@ -23,7 +23,7 @@ class BlogCreate(LoginRequiredMixin,CreateView):
 
     model= Blog
     template_name='Blog/blog_crear.html'
-    fields= ["titulo", "descripcion", "autor", "categoria"]
+    fields= ["titulo", "descripcion", "autor", "categoria", "imagen", "Fecha"]
     success_url= '/blog_list/'
 
     def form_valid(self, form):
@@ -96,22 +96,6 @@ class ComentarioCreate(LoginRequiredMixin, CreateView):
         
     #     return f"/comentario_list/{self.kwargs['pk']}/"
     
-# class ComentarioList(ListView):
-    
-#     model= Comentario
-#     te  template_name = 'Comentarios/comentario_update.html'
-#     fields=["nombre", "edad", "comentario"]
-#     success_url= '/comentario_list/'
 
-# class ComentarioDelete(DeleteView):
-    
-#     model= Comentario
-#     template_name = 'Comentarios/comentario_delete.html'
-#     success_url= '/comentario_list/'mplate_name= 'Comentarios/comentario_list.html'
-#     context_object_name='comentarios'
-
-# class ComentarioUpdate(UpdateView):
-#     model= Comentario
-#   
 
 
