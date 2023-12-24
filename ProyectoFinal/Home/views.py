@@ -107,6 +107,8 @@ def profile_update(request):
     if request.method == "GET":
 
         valores_iniciales = {
+            "first_name": usuario.first_name,
+            "last_name": usuario.last_name,
             "email": usuario.email,
             "about_me": perfil.about_me if perfil else ""
         }
@@ -122,6 +124,8 @@ def profile_update(request):
         if formulario.is_valid():
             informacion = formulario.cleaned_data
 
+            usuario.first_name = informacion["first_name"]
+            usuario.last_name = informacion["last_name"]
             usuario.email = informacion["email"]
             usuario.set_password(informacion["password1"])
             if perfil:

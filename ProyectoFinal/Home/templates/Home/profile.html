@@ -11,12 +11,12 @@
             <img src="{{ avatar_url }}" alt="Avatar" class="profile-image" />
         </div>
         <div class="profile-info">
-            <p class="profile-username">Mi perfil: {{ profile.usuario }}</p>
-            <p class="profile-about">Info sobre mí: {{ profile.about_me }}</p>
+            <p class="profile-username">Usuario: {{ profile.usuario }}</p>
+            <p class="profile-about">Información sobre mí: {{ profile.about_me }}</p>
         </div>
     </div>
     <div class="buttons-container">
-        <a href="{% url 'profile_update' %}" class="edit-profile-button">Editar Perfil y Password</a>
+        <a href="{% url 'profile_update' %}" class="edit-profile-button">Actualizar Perfil y Cambiar Password</a>
     </div>
 </div>
 

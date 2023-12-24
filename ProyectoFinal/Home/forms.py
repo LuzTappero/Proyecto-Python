@@ -17,13 +17,15 @@ class UserCreationFormulario(UserCreationForm):
         help_text= {k: "" for k in fields}
 
 class UserEditionFormulario(UserChangeForm):
+    first_name = forms.CharField()
+    last_name = forms.CharField()
     email = forms.EmailField()
     password1 = forms.CharField(label= "Contraseña", widget=forms.PasswordInput)
     password2 = forms.CharField(label= "Repetir Contraseña", widget=forms.PasswordInput)
 
     class Meta:
         model = UserModel
-        fields = ["email"]
+        fields = ["first_name", "last_name", "email"]
         help_texts = {k: "" for k in fields}
 
     about_me= forms.CharField()
