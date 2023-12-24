@@ -19,6 +19,13 @@
         </div>
     </div>
     <div class="buttons-container">
+        {% if avatar_url %}
+            <a href="{% url 'update_avatar' %}" class="edit-profile-button">Actualizar Avatar</a>
+        {% else %}
+            <a href="{% url 'crear_avatar' %}" class="edit-profile-button">Crear Avatar</a>
+        {% endif %}
+    </div>
+    <div class="buttons-container">
         <a href="{% url 'profile_update' %}" class="edit-profile-button">Actualizar Perfil y Cambiar Password</a>
     </div>
 </div>

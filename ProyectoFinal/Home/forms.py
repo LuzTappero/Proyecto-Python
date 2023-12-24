@@ -16,6 +16,15 @@ class UserCreationFormulario(UserCreationForm):
         fields= ["password1", "password2", "username", "email"]
         help_text= {k: "" for k in fields}
 
+class ProfileCreation(forms.ModelForm):
+    class Meta:
+        model = Perfil
+        fields = ["enlace", "about_me"]
+
+    def __init__(self, *args, **kwargs):
+        super(ProfileCreation, self).__init__(*args, **kwargs)
+
+
 class UserEditionFormulario(UserChangeForm):
     first_name = forms.CharField()
     last_name = forms.CharField()

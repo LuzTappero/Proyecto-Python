@@ -1,7 +1,7 @@
 from pyexpat.errors import messages
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseBadRequest
-from .forms import UserCreationFormulario, UserEditionFormulario, UserAvatarFormulario
+from .forms import UserEditionFormulario, UserAvatarFormulario, UserCreationFormulario
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required 
@@ -13,7 +13,7 @@ from datetime import datetime
 from django.urls import reverse_lazy
 from Blog.models import Perfil
 from django.views.generic.detail import DetailView
-
+from .forms import ProfileCreation
 
 
 def Home(request):
@@ -85,18 +85,55 @@ def logout_view(request):
     pass
 
 def profile_view(request, id=None):
+    
     if id:
         user= User.objects.get(id=id)
-        profile= Perfil.objects.filter(usuario=user).first()
-        avatar= Avatar.objects.filter(user=user).first()
-        avatar_url= avatar.imagen.url if avatar is not None else ""
-        context= {'profile': profile, 'avatar_url': avatar_url}
 
-        return render (request, 'Home/profile.html', context)
+        perfil_existente = Perfil.objects.filter(usuario=user).exists()
+
+        if perfil_existente:
+            profile= Perfil.objects.filter(usuario=user).first()
+            avatar= Avatar.objects.filter(user=user).first()
+            avatar_url= avatar.imagen.url if avatar is not None else ""
+            context= {'profile': profile, 'avatar_url': avatar_url}
+
+            return render (request, 'Home/profile.html', context)
+        else:
+            return redirect('profile_create')
     else:
         return HttpResponse("Id no proporcionado en la URL.")
 
+
 @login_required
+def profile_create(request):
+    usuario = request.user
+
+    if request.method == "GET":
+        formulario = ProfileCreation()
+        return render(
+            request,
+            'Home/profile_create.html',
+            context={"form": formulario, "usuario": usuario}
+        )
+    elif request.method == "POST":
+        formulario = ProfileCreation(request.POST)
+        if formulario.is_valid():
+            informacion = formulario.cleaned_data
+
+            perfil = Perfil.objects.create(
+                usuario=usuario,
+                about_me=informacion["about_me"],
+                enlace=informacion["enlace"]
+            )
+            perfil.save()
+
+            return redirect('profile', id=usuario.id)
+        else:
+            return HttpResponseBadRequest('Bad Request')
+    else:
+        return HttpResponseBadRequest('Bad Request')
+
+@login_required # type: ignore
 def profile_update(request):
 
     usuario= request.user
@@ -135,14 +172,13 @@ def profile_update(request):
                 perfil.save()
 
             usuario.save()
-            return redirect('profile', id=usuario.id)
+            return redirect('login')
     else:
         return HttpResponseBadRequest('Bad Request')
     
 @login_required # type: ignore
 def crear_avatar(request):
     usuario = request.user
-
     if request.method == "GET":
         formulario = UserAvatarFormulario()
         return render(
@@ -156,5 +192,29 @@ def crear_avatar(request):
             informacion = formulario.cleaned_data
             modelo = Avatar(user=usuario, imagen=informacion["imagen"])
             modelo.save()
-            return redirect('Home: index')
+            return redirect('profile' , id=usuario.id)
         
+login_required # type: ignore
+def update_avatar(request):
+    usuario = request.user
+    avatar = Avatar.objects.filter(user=usuario).last()
+
+    if request.method == "GET":
+        formulario = UserAvatarFormulario(instance=avatar)
+        return render(
+            request,
+            'Home/update_avatar.html',
+            context={"form": formulario, "usuario": usuario, "avatar": avatar}
+        )
+    else:
+        formulario = UserAvatarFormulario(request.POST, request.FILES, instance=avatar)
+        if formulario.is_valid():
+            formulario.instance.user = usuario
+            formulario.save()
+            return redirect('profile', id=usuario.id)
+        
+        return render(
+            request,
+            'Home/profile.html',
+            context={"form": formulario, "usuario": usuario, "avatar": avatar}
+        )
