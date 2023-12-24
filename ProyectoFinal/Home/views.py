@@ -103,7 +103,6 @@ def profile_view(request, id=None):
     else:
         return HttpResponse("Id no proporcionado en la URL.")
 
-
 @login_required
 def profile_create(request):
     usuario = request.user

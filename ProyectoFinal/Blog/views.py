@@ -16,7 +16,6 @@ from django.utils.decorators import method_decorator
 def Blogs(request):
     return render (request, 'Blog/blog.html')
 
-####VISTAS BASADAS EN CLASES####
 ##MODELO BLOG##
     
 class BlogCreate(LoginRequiredMixin,CreateView):
