@@ -10,8 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .forms import ComentarioForm
 from django.shortcuts import get_object_or_404
-
-
+from django.utils.decorators import method_decorator
 
 
 def Blogs(request):
@@ -71,7 +70,7 @@ def MisBlogList(request, id=None):
         return HttpResponse("ID no proporcionado en la URL.")
 
 ##MODELO COMENTARIO##
-    
+@method_decorator(login_required, name='dispatch')  
 class ComentarioCreate(LoginRequiredMixin, CreateView):
     template_name = 'Comentarios/comentario_create.html'
 

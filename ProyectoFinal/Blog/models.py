@@ -6,6 +6,7 @@ from datetime import date
 class Perfil (models.Model):
     usuario= models.ForeignKey(User, on_delete= models.CASCADE)
     about_me= models.CharField(max_length=2200)
+    enlace = models.URLField(blank=True, null=True)
 
 
     def __str__(self):

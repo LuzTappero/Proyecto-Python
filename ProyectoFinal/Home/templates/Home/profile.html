@@ -13,6 +13,9 @@
         <div class="profile-info">
             <p class="profile-username">Usuario: {{ profile.usuario }}</p>
             <p class="profile-about">Información sobre mí: {{ profile.about_me }}</p>
+            {% if profile.enlace %}
+                <p class="profile-enlace">Link a mi Red Social: <a href="{{ profile.enlace }}" target="_blank">{{ profile.enlace }}</a></p>
+            {% endif %}
         </div>
     </div>
     <div class="buttons-container">

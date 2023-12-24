@@ -110,7 +110,8 @@ def profile_update(request):
             "first_name": usuario.first_name,
             "last_name": usuario.last_name,
             "email": usuario.email,
-            "about_me": perfil.about_me if perfil else ""
+            "about_me": perfil.about_me if perfil else "",
+            "enlace": perfil.enlace if perfil else ""
         }
 
         formulario = UserEditionFormulario(initial=valores_iniciales)
@@ -130,6 +131,7 @@ def profile_update(request):
             usuario.set_password(informacion["password1"])
             if perfil:
                 perfil.about_me = informacion["about_me"]
+                perfil.enlace = informacion["enlace"]
                 perfil.save()
 
             usuario.save()

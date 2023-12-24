@@ -28,7 +28,8 @@ class UserEditionFormulario(UserChangeForm):
         fields = ["first_name", "last_name", "email"]
         help_texts = {k: "" for k in fields}
 
-    about_me= forms.CharField()
+    about_me= forms.CharField(max_length=2200)
+    enlace= forms.URLField()
 
 
 class UserAvatarFormulario(forms.ModelForm):
