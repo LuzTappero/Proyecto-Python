@@ -1,15 +1,26 @@
 
 ###Proyecto_final- TAPPERO MARIA LUZ
-Este proyecto realizado en python-django; tiene como funciones acceder a una pagina web, ver blogs subidos por distintos usuarios; registrarse, loguearse, subir blogs, crear comentarios sobre blogs de otros usuarios, crear un perfil con información sobre el usuario, subir un avatar y poder editarlos.
+
+Este proyecto realizado en python-django; tiene como funciones:
+-Acceder a una pagina web.
+-Visualizar blogs subidos por todos los usuarios. 
+-Visualizar blogs subidos por mi usuario.
+-SignIn, LogIn y LogOut.
+-Crear, editar y eliminar blogs.
+-Crear comentarios sobre blogs de otros usuarios.
+-Cear y editar un perfil con información sobre el usuario, con descripcion y avatars.
+
 
 0- Installar Django con el comando pip install django
+
 ----------------------------------------------------------------------------------------------------------
 
 1- Se creo un repositorio de git-hub con el nombare Proyecto_final-main; y dentro de ésta se ejecuto el comando:
-    .django-admin startproject ProyectoFinal. (crea un archivo llamado ProyectoFinal, donde se encuentra el archivo de settings general del proyecto)
+    - django-admin startproject ProyectoFinal. (crea un archivo llamado ProyectoFinal, donde se encuentra el archivo de settings general del proyecto)
     Dentro de ésta ultima carpeta se ejecutaron los comandos:
     - python manage.py startapp Home
     - python manage.py startapp Blog
+
 ----------------------------------------------------------------------------------------------------------
 
 2- URL
@@ -43,6 +54,7 @@ En la app Home se encuentran las siguientes url:
     ]
 
 if settings.DEBUG: urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 ----------------------------------------------------------------------------------------------------------
 
 3-MODELOS
@@ -68,9 +80,11 @@ if settings.DEBUG: urlpatterns += static(settings.MEDIA_URL, document_root=setti
     Avatar Create & Update
 
     En la app de Blog se encuentran definidas las vistas de:
-    Blog
+    Blogs
+    Mis Blogs 
     Blog Create, UpDate, Detail, & Delete
     Comentario Create
+
 ----------------------------------------------------------------------------------------------------------
 
 5-FORMULARIOS
@@ -87,11 +101,13 @@ if settings.DEBUG: urlpatterns += static(settings.MEDIA_URL, document_root=setti
     En la app Blog, se encuentra la carpeta llamada Templates/Home, la cual hereda contenido de Home, y ademas responde a las vistas del CRUD de Blog.
 ----------------------------------------------------------------------------------------------------------
 
-7- En la carpeta media dentro de la carpeta ProyectoFinal se encuentra la carpeta avatares/media (donde se guardan las imagenes que se seleccionan para crear o actualizar un avatar); y la carpeta blogs donde se guardan las fotos que se seleccionan para crear un nuevo blog
-----------------------------------------------------------------------------------------------------------
-
-8- Con el comando python manage.py runserver se ejecuta la página creada, en la cual se puede Acceder al Home y About; donde hay información sobre la finalidad del proyecto e información sobre mí (LuzTappero), así también; se pueden ver blogs creados por todos los usuarios; 
-Por otra parte, se puede realizar un registro y login de usuarios; para poder tener acceso a Crear Blogs, interaccionar con otros blogs creando comentarios, general un perfil donde se pueda poner información sobre el mismo, avatares y link que lleven a una red social.
+7- En la carpeta media dentro de la carpeta ProyectoFinal se encuentran las carpetas:
+    -media/avatares: se guardan las imagenes del avatar de los usuarios.
+    -media/blogs: se guardan las imagenes de los blogs.
 
 ----------------------------------------------------------------------------------------------------------
-=======
+
+8- Con el comando python manage.py runserver se ejecuta la página creada, en la cual se puede Acceder al Home y About; donde hay información sobre la finalidad del proyecto e información sobre mí (LuzTappero), así también; se pueden ver blogs creados por todos los usuarios.
+Por otra parte, se puede realizar un registro y login de usuarios; para poder tener acceso a Crear Blogs, interaccionar con otros blogs creando comentarios, general un perfil donde se agrega información sobre el mismo, avatares y link que lleven a una red social u otro link de interes.
+
+----------------------------------------------------------------------------------------------------------
