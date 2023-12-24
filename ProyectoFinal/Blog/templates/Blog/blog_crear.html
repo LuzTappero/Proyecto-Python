@@ -4,7 +4,7 @@
     <body>
         <div class="container">
             <h3>Agregar Blog</h3>
-            <form action="/blog_create/" method="POST">
+            <form action="/blog_create/" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-fields">
                     {{ form.as_p }}

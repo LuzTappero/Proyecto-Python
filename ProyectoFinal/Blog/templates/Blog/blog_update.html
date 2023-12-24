@@ -63,7 +63,8 @@
 <body>
     <div class="container">
         <h3>Editar Blog</h3>
-        <form action="{% url 'blog_update' blog.pk %}" method="POST">
+        <p>Debug: {{ form.instance }}</p>
+        <form action="{% url 'blog_update' blog.pk %}" method="POST"  enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-fields">
                 {{ form.as_p }}

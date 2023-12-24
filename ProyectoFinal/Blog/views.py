@@ -9,6 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required 
 from django.contrib.auth.models import User
 from .forms import ComentarioForm
+from django.shortcuts import get_object_or_404
 
 
 
@@ -40,8 +41,12 @@ class BlogUpdate(LoginRequiredMixin,UpdateView):
     
     model= Blog
     template_name = 'Blog/blog_update.html'
-    fields=["titulo", "descripcion", "autor", "categoria"]
+    fields=["titulo", "descripcion", "autor", "categoria", "imagen", "Fecha"]
 
+    def get_object(self,queryset=None):
+        user_id= self.request.user.pk
+        return get_object_or_404(Blog, pk=self.kwargs['pk'], usuario_id=user_id)
+    
     def get_success_url(self):
         user_id= self.request.user.pk
         return f'/mis_blog_list/{user_id}'
@@ -86,15 +91,6 @@ class ComentarioCreate(LoginRequiredMixin, CreateView):
             return redirect(f"blog_list")
         return render(request, self.template_name, {'blog': blog, 'form': form})
    
-
-    # def form_valid(self, form):
-    #     form.instance.usuario = self.request.user
-    #     form.instance.blog_id = self.kwargs['pk']
-    #     return super().form_valid(form)
-    
-    # def get_success_url(self):
-        
-    #     return f"/comentario_list/{self.kwargs['pk']}/"
     
 
 
