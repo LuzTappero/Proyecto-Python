@@ -12,17 +12,17 @@
 
                 {% if user.is_authenticated %}
 
-                    <span class="navbar-text"> {{user.username}}</span>
+                    <!-- <span class="navbar-text"> {{user.username}}</span> -->
                     <li class="nav-item"><a class="nav-link active" href="{% url 'mis_blog_list' id=user.id %}">MIS BLOGS</a></li>
                     <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'blog_create' %}">CREAR BLOGS</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="{% url 'profile' id=user.id %}">MI PERFIL: {{user.username}}</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="{% url 'profile' id=user.id %}">MI PERFIL</a></li>
                     <!-- <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'crear_avatar' %}">CREAR AVATAR</a></li> -->
                     <img src="{{avatar_url}}" style="height: 40px; width: auto; border-radius: 50% ; vertical-align: middle;"/>
-                    <a class = "navbar-brand" href="{% url 'logout' %}">LOGOUT</a>
+                    <li class="nav-item"><a class="nav-link active" href="{% url 'logout' %}">LOGOUT</a></li>
 
                 {% else %}
-                    <a class = "navbar-brand" href="{% url 'login' %}">LOGIN</a>
-                    <a class = "navbar-brand" href="{% url 'registro' %}">SIGNIN</a>
+                    <li class="nav-item"><a class="nav-link active" href="{% url 'login' %}">LOGIN</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="{% url 'registro' %}">SIGNIN</a></li>
                 {% endif %}
                  
             </ul>
